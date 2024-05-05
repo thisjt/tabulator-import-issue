@@ -1,6 +1,30 @@
 <script>
-	import { TabulatorFull as Tabulator } from 'tabulator-tables';
+import { TabulatorFull as Tabulator } from 'tabulator-tables';
+import { onMount } from 'svelte';
+
+onMount(() => {
+  const tableTester = new Tabulator('#tabletest', {
+    height: '30vh',
+    layout: 'fitColumns',
+    groupBy: 'group',
+    columns: [
+      {
+        title: 'Test1',
+        field: 'key',
+        widthGrow: 5,
+      },
+      {
+        title: 'Test2',
+        field: 'value',
+        widthGrow: 5,
+      },
+    ],
+  });
+
+  tableTester.on('tableBuilt', () => {
+    tableTester.addData({ group: 'Test3', key: 'Test4', value: 'Test5' });
+  });
+});
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div id="tabletest"></div>
